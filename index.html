@@ -38,14 +38,14 @@
       <fieldset
         class="fieldset w-md p-6">
         <label class="label text-black font-semibold">Username</label>
-        <input type="email" class="input w-full" placeholder="Enter Username" />
+        <input id="inputUsername" type="email" class="input w-full" placeholder="Enter Username" />
         <p class="mb-3 text-blue-600">Default: admin</p>
 
         <label class="label text-black font-semibold">Password</label>
-        <input type="password" class="input w-full" placeholder="Enter Password" />
+        <input id="inputPass" type="password" class="input w-full" placeholder="Enter Password" />
          <p class="text-blue-600">Default: admin123</p>
 
-        <button class="btn btn-primary rounded-md mt-4 mb-4">Login</button>
+        <button onclick="loadHome()" class="btn btn-primary rounded-md mt-4 mb-4">Sign In</button>
 
         <div class="flex items-center justify-center gap-1 mb-3">
             <div class="flex-grow border border-t-1 border-gray-300"></div>
@@ -60,5 +60,7 @@
         </div>
       </fieldset>
     </div>
+
+    <script src="./login.js"></script>
   </body>
 </html>

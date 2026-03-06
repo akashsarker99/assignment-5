@@ -28,22 +28,36 @@
 
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
-    <div>
-        <div>
-            <img src="./assets/github-logo.png" alt="">
+  <body class="my-10 bg-[#F8FAFC]">
+    <div class="min-h-[730px] max-w-md bg-white shadow-2xl mx-auto py-20 rounded-xl ">
+        <div class="text-center space-y-2">
+            <img class="mx-auto" src="./assets/github-logo.png" alt="">
+            <h2 class="text-3xl font-semibold">GitHub Issues Tracker</h2>
+            <p class="text-[#64748B]">Sign in to manage your issues</p>
         </div>
       <fieldset
-        class="fieldset min-h-[730px] bg-base-200 border-base-300 rounded-box w-xs border p-4">
-        <legend class="fieldset-legend">Login</legend>
+        class="fieldset w-md p-6">
+        <label class="label text-black font-semibold">Username</label>
+        <input type="email" class="input w-full" placeholder="Enter Username" />
+        <p class="mb-3 text-blue-600">Default: admin</p>
 
-        <label class="label">Email</label>
-        <input type="email" class="input" placeholder="Email" />
+        <label class="label text-black font-semibold">Password</label>
+        <input type="password" class="input w-full" placeholder="Enter Password" />
+         <p class="text-blue-600">Default: admin123</p>
 
-        <label class="label">Password</label>
-        <input type="password" class="input" placeholder="Password" />
+        <button class="btn btn-primary rounded-md mt-4 mb-4">Login</button>
 
-        <button class="btn btn-neutral mt-4">Login</button>
+        <div class="flex items-center justify-center gap-1 mb-3">
+            <div class="flex-grow border border-t-1 border-gray-300"></div>
+            <h2>OR</h2>
+            <div class="flex-grow border border-t-1 border-gray-300"></div>
+        </div>
+
+        <div class="bg-[#F8FAFC] text-center">
+            <p class="text-[#64748B] mb-4">Demo Credentials:</p>
+            <p><span class="text-black font-bold">Username:</span> admin</p>
+            <p><span class="text-black font-bold">Password:</span> admin123</p>
+        </div>
       </fieldset>
     </div>
   </body>

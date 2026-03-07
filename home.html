@@ -31,13 +31,13 @@
 
     <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-    <header>
+<body class="bg-[#F8FAFC]">
+    <header class="mb-10">
         <div class="navbar bg-base-100 shadow-sm flex justify-between">
               <div class="grid grid-cols-2 gap-1">
-         <h2 class=" text-xl font-bold"><i class="fa-brands fa-github"></i> GitHub Issues Tracker</h2>
+         <h2 class="text-md  sm:text-xl font-bold"><i class="fa-brands fa-github"></i> GitHub Issues Tracker</h2>
     </div>
-  <div class="flex gap-2">
+  <div class="flex flex-col gap-2 sm:flex-row">
    <label class="input">
   <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <g
@@ -61,5 +61,40 @@
 </div>
     </header>
 
+    <section id ="buttons" class="bg-white shadow-xl w-10/12 mx-auto p-6">
+        <div class="space-x-2 flex flex-col gap-2 sm:flex-row ">
+            <button id="allBtn" onclick="toggleBtn('allBtn')" class="btn btn-primary">All</button>
+            <button id="openBtn" onclick="toggleBtn('openBtn')" class="btn">Open</button>
+            <button id="closedBtn" onclick="toggleBtn('closedBtn')" class="btn">Closed</button>
+        </div>
+    </section>
+
+    <section class="w-10/12 mx-auto mt-5 p-6 bg-white">
+    <div class="flex justify-between pb-3 border-b-2 border-b-gray-300">
+       <div class="flex gap-2">
+          <div class="bg-purple-100 h-12 w-12 rounded-full flex justify-center items-center"><img src="./assets/Aperture.png" alt=""></div>
+        <div>
+         <h2 class="text-2xl font-bold">50 issues</h2>
+         <p class="text-[#64748B]">Track and manage your project issues</p>
+      </div>
+     </div>
+     <div class="flex gap-2">
+       <p><i class="fa-solid fa-circle text-green-600"></i> Open</p>
+       <p><i class="fa-solid fa-circle text-purple-600"></i> Closed</p>
+     </div>
+    </div>
+
+    <div id="all-card-container" class="py-5 bg-gray-50 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 justify-items-center">
+    </div>
+
+    <div id="open-card-container" class=" py-5 bg-gray-50 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 justify-items-center">
+
+    </div>
+    <div id="closed-card-container" class=" py-5 bg-gray-50 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 justify-items-center">
+
+    </div>
+    </section>
+
+    <script src="/home.js"></script>
 </body>
 </html>

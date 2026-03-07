@@ -3,3 +3,10 @@
 body{
       font-family: "Geist", sans-serif;
 }
+
+.high{
+      padding-inline: 20px;
+      background-color: rgb(249, 207, 207);
+      color: red;
+      border-radius: 40px;
+}

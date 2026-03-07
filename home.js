@@ -1,3 +1,6 @@
+const spinner = document.getElementById('spinner');
+const allCard = document.getElementById('all-card-container');
+
 
 function toggleBtn(id) {
     
@@ -23,6 +26,15 @@ function toggleBtn(id) {
     }
 }
 
+function showSpinner (){
+    spinner.classList.remove('hidden');
+    allCard.classList.add('hidden');
+}
+function hideSpinner (){
+     spinner.classList.add('hidden');
+    allCard.classList.remove('hidden');
+}
+
 const priorityCheck =(prio)=>{
     if(prio == "high"){
         return "high";
@@ -36,9 +48,11 @@ const priorityCheck =(prio)=>{
 }
 
 const loadAllissue = async () => {
+      showSpinner();
     const url = 'https://phi-lab-server.vercel.app/api/v1/lab/issues';
     const res =await fetch(url);
     const data = await res.json();
+    hideSpinner();
         allIssueCard(data.data);
         return data.data;
 }

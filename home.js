@@ -23,7 +23,7 @@ function toggleBtn(id) {
     }
 }
 
-const statusCheck =(prio)=>{
+const priorityCheck =(prio)=>{
     if(prio == "high"){
         return "high";
     }
@@ -52,11 +52,11 @@ const allIssueCard =(issue) =>{
           <div class="cardd p-5 shadow-xl rounded-2xl space-y-3 h-[300px] ${element.status == "open"? "border-t-3 border-t-green-500": "border-t-3 border-t-purple-500"} cursor-pointer" onclick='modalOpen(${element.id})' >
         <div class="flex justify-between">
            ${element.status == "open" ? '<img src="./assets/Open-Status.png" alt=""></img>' : '<img src="./assets/Closed- Status .png" alt=""></img>' } 
-           <button class="${statusCheck(element.priority)}">${element.priority}</button>
+           <button class="${priorityCheck(element.priority)}">${element.priority}</button>
         </div>
         <div>
           <h2 class="text-md font-semibold">${element.title}</h2>
-          <p class="text-[#64748B] text-[13px] line-clamp-2">${element.description}</p>
+          <p class="text-[#64748B] text-[16px] line-clamp-2">${element.description}</p>
         </div>
         <div>
            ${element.labels[0]? `<button class="bg-yellow-100 text-sm text-amber-600 px-3 rounded-4xl border border-amber-600 ">${element.labels[0]}</button>` : ""}
@@ -102,20 +102,20 @@ const modalOpen = async (id)=>{
     console.log(card);
     modalContent.innerHTML = `
     <h3 class="text-lg font-bold">${card.title}</h3>
-     <button class="">${card.status}</button>
+     <button class="${card.status == "open"? "bg-green-600 rounded-4xl px-3 text-white": "bg-purple-600 rounded-4xl px-3 text-white"}">${card.status}</button>
       <div>
            ${card.labels[0]? `<button class="bg-yellow-100 text-sm text-amber-600 px-3 rounded-4xl border border-amber-600 ">${card.labels[0]}</button>` : ""}
           ${card.labels[1]? `<button class="bg-yellow-100 text-sm text-amber-600 px-3 rounded-4xl border border-amber-600 ">${card.labels[1]}</button>` : ""}
         </div>
          <p class="text-[#64748B] text-[13px]">${card.description}</p>
-          <div class="flex justify-around items-start bg-[#F8FAFC] py-3">
+          <div class="flex justify-between items-center bg-[#F8FAFC] p-5">
             <div>
             <p class="text-[#64748B]">Assignee:</p>
             <p class="text-black font-bold">${card.assignee}</p>
         </div>
           <div>
             <p class="text-[#64748B]">Priority:</p>
-            <p class="${statusCheck(card.priority)}">${card.priority}</p>
+            <p class="${priorityCheck(card.priority)}">${card.priority}</p>
         </div>
           </div>
     `

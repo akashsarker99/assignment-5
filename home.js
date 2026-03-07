@@ -15,45 +15,57 @@ function toggleBtn(id) {
     if(id == "allBtn"){
         loadAllissue();
     }
-    // else if(id =="openBtn"){
-    //     loadOpenIssue();
-    // }
-    // else if(id == "closedIssue"){
-    //     loadClosedIssue();
-    // }
+    else if(id =="openBtn"){
+        loadOpenIssue();
+    }
+    else if(id == "closedBtn"){
+        loadClosedIssue();
+    }
 }
 
+const statusCheck =(prio)=>{
+    if(prio == "high"){
+        return "high";
+    }
+    else if(prio == "medium"){
+        return "medium";
+    }
+    else{
+        return "low"
+    }
+}
 
-function loadAllissue() {
-    fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
-    .then(res => res.json())
-    .then(data => allIssueCard(data.data))
+const loadAllissue = async () => {
+    const url = 'https://phi-lab-server.vercel.app/api/v1/lab/issues';
+    const res =await fetch(url);
+    const data = await res.json();
+        allIssueCard(data.data);
+        return data.data;
 }
 
 const allIssueCard =(issue) =>{
     const allCardContainer = document.getElementById('all-card-container');
     allCardContainer.innerHTML = "";
-console.log(issue)
    issue.forEach(element => {
         const issueCard = document.createElement('div');
         issueCard.innerHTML = `
-          <div class="cardd p-5 w-[280px] shadow-2xl rounded-2xl space-y-3 h-[300px]">
+          <div class="cardd p-5 w-[280px] shadow-xl rounded-2xl space-y-3 h-[300px] ${element.status == "open"? "border-t-3 border-t-green-500": "border-t-3 border-t-purple-500"}">
         <div class="flex justify-between">
-           <img src="./assets/Open-Status.png" alt="">
-           <button class="high">High</button>
+           ${element.status == "open" ? '<img src="./assets/Open-Status.png" alt=""></img>' : '<img src="./assets/Closed- Status .png" alt=""></img>' } 
+           <button class="${statusCheck(element.priority)}">${element.priority}</button>
         </div>
         <div>
           <h2 class="text-md font-semibold">${element.title}</h2>
-          <p class="text-[#64748B] text-[13px]">The navigation menu doesn't collapse properly on mobile devices...</p>
+          <p class="text-[#64748B] text-[13px] line-clamp-2">${element.description}</p>
         </div>
         <div>
-          <button class="bg-red-100 text-red-500 px-3 rounded-4xl border border-red-500"><i class="fa-solid fa-bug"></i> Bug</button>
-          <button class="bg-yellow-100 text-amber-600 px-3 rounded-4xl border border-amber-600"><i class="fa-solid fa-life-ring"></i> Help Wanted</button>
-        </div><br>
+           ${element.labels[0]? `<button class="bg-yellow-100 text-sm text-amber-600 px-3 rounded-4xl border border-amber-600 ">${element.labels[0]}</button>` : ""}
+          ${element.labels[1]? `<button class="bg-yellow-100 text-sm text-amber-600 px-3 rounded-4xl border border-amber-600 ">${element.labels[1]}</button>` : ""}
+        </div>
         <hr class="opacity-50">
 
-        <p class="text-[#64748B]">#Jon doe</p>
-        <p class="text-[#64748B]">1/4/2026</p>
+        <p class="text-[#64748B]">#${element.id} by${element.author}</p>
+        <p class="text-[#64748B]">${element.createdAt}</p>
 
       </div>
     </div>
@@ -61,6 +73,21 @@ console.log(issue)
 
         allCardContainer.appendChild(issueCard);
    });
+
+   const issueCount = document.getElementById('issueCount');
+   issueCount.innerText = allCardContainer.children.length;
+}
+
+const loadOpenIssue = async () => {
+    const allIssue = await loadAllissue();
+    const openFilter = allIssue.filter(element => element.status == "open")
+    allIssueCard(openFilter);
+}
+
+const loadClosedIssue = async () => {
+    const allIssue = await loadAllissue();
+  const closeFilter = allIssue.filter(element => element.status == "closed");
+    allIssueCard(closeFilter);
 }
 
 loadAllissue();

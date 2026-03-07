@@ -10,3 +10,15 @@ body{
       color: red;
       border-radius: 40px;
 }
+.medium{
+       padding-inline: 20px;
+      background-color:rgb(250, 236, 155);
+      color: rgb(240, 125, 1);
+      border-radius: 40px;
+}
+.low{
+       padding-inline: 20px;
+      background-color: rgb(224, 224, 224);
+      color: rgb(97, 96, 96);
+      border-radius: 40px;
+}

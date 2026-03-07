@@ -1,9 +1,9 @@
 const spinner = document.getElementById('spinner');
 const allCard = document.getElementById('all-card-container');
-
+let btnTrack ='allBtn';
 
 function toggleBtn(id) {
-    
+    btnTrack = id;
    const allBtn = document.getElementById('allBtn');
     const openBtn = document.getElementById('openBtn');
     const closedBtn = document.getElementById('closedBtn');
@@ -107,10 +107,20 @@ const loadClosedIssue = async () => {
 const loadSearchIssue =async () =>{
     const input = document.getElementById('searchInput');
     const inputVal = input.value.trim();
-
-   const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${inputVal}`);
+       if(inputVal === ""){
+      return;
+    }
+    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${inputVal}`);
     const searchFilter = await res.json();
-   allIssueCard(searchFilter.data);
+    let searchData = searchFilter.data;
+
+    if(btnTrack === "openBtn"){
+       searchData = searchData.filter(element => element.status == "open")
+    }
+    else if(btnTrack === "closedBtn"){
+       searchData = searchData.filter(element => element.status == "closed")
+    }
+   allIssueCard(searchData);
 }
 
 const modalOpen = async (id)=>{

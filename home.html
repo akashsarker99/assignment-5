@@ -51,9 +51,9 @@
       <path d="m21 21-4.3-4.3"></path>
     </g>
   </svg>
-  <input type="search" required placeholder="Search" />
-</label>
-      <div class="btn btn-primary">
+  <input id="searchInput" type="search" required placeholder="Search" />
+</label> 
+      <div id="searchBtn" onclick="loadSearchIssue('searchBtn')" class="btn btn-primary">
            <button>+ New issue</button>
         </div>
     </div>
@@ -61,7 +61,7 @@
 </div>
     </header>
 
-    <section id ="buttons" class="bg-white shadow-xl w-10/12 mx-auto p-6 border border-gray-300 rounded-2xl">
+    <section id ="buttons" class="bg-white shadow w-10/12 mx-auto p-6 border border-gray-300 rounded-2xl">
         <div class="mx-auto flex flex-col sm:flex-row gap-3">
             <button id="allBtn" onclick="toggleBtn('allBtn')" class="btn btn-primary">All</button>
             <button id="openBtn" onclick="toggleBtn('openBtn')" class="btn">Open</button>
@@ -92,8 +92,6 @@
     </div>
     </section>
 
-
-<!-- <button class="btn" onclick="my_modal.showModal()">open modal</button> -->
 <dialog id="my_modal" class="modal modal-bottom sm:modal-middle">
   <div class="modal-box p-10">
      <div id="modal-contentt" class="space-y-4">

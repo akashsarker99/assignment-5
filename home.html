@@ -33,11 +33,11 @@
 </head>
 <body class="bg-[#F8FAFC]">
     <header class="mb-10">
-        <div class="navbar bg-base-100 shadow-sm flex justify-between">
-              <div class="grid grid-cols-2 gap-1">
-         <h2 class="text-md  sm:text-xl font-bold"><i class="fa-brands fa-github"></i> GitHub Issues Tracker</h2>
+        <div class="navbar bg-base-100 shadow-sm text-3xl font-bold text-center flex flex-col items-center md:flex-row justify-between ">
+              <div class="mt-4 mb-4 md:mb-0 md:mt-0">
+         <h2 class="text-md  sm:text-2xl font-bold"><i class="fa-brands fa-github"></i> GitHub Issues Tracker</h2>
     </div>
-  <div class="flex flex-col gap-2 sm:flex-row">
+  <div class="flex flex-col gap-2 mb-3 sm:flex-row sm:mb-4 md:mb-0">
    <label class="input">
   <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <g
@@ -53,7 +53,7 @@
   </svg>
   <input id="searchInput" type="search" required placeholder="Search" />
 </label> 
-      <div id="searchBtn" onclick="loadSearchIssue('searchBtn')" class="btn btn-primary">
+      <div id="searchBtn" onclick="loadSearchIssue('searchBtn')" class="btn btn-primary btn-sm sm:btn-md mx-auto">
            <button>+ New issue</button>
         </div>
     </div>

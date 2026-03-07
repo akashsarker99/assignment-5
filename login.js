@@ -5,7 +5,7 @@ const loadHome = ()=>{
 
     if(userName =="admin" && inputPass=="admin123"){
         alert("Sign In successfull");
-        window.location.assign("/home.html");
+        window.location.assign("./home.html");
     }
     else{
         alert("Sign In failed");

@@ -49,7 +49,7 @@ const allIssueCard =(issue) =>{
    issue.forEach(element => {
         const issueCard = document.createElement('div');
         issueCard.innerHTML = `
-          <div class="cardd p-5 w-[280px] shadow-xl rounded-2xl space-y-3 h-[300px] ${element.status == "open"? "border-t-3 border-t-green-500": "border-t-3 border-t-purple-500"}">
+          <div class="cardd p-5 shadow-xl rounded-2xl space-y-3 h-[300px] ${element.status == "open"? "border-t-3 border-t-green-500": "border-t-3 border-t-purple-500"} cursor-pointer" onclick='modalOpen(${element.id})' >
         <div class="flex justify-between">
            ${element.status == "open" ? '<img src="./assets/Open-Status.png" alt=""></img>' : '<img src="./assets/Closed- Status .png" alt=""></img>' } 
            <button class="${statusCheck(element.priority)}">${element.priority}</button>
@@ -64,8 +64,8 @@ const allIssueCard =(issue) =>{
         </div>
         <hr class="opacity-50">
 
-        <p class="text-[#64748B]">#${element.id} by${element.author}</p>
-        <p class="text-[#64748B]">${element.createdAt}</p>
+        <p class="text-[#64748B] text-sm">#${element.id} by${element.author}</p>
+        <p class="text-[#64748B] text-sm">${element.createdAt}</p>
 
       </div>
     </div>
@@ -90,4 +90,35 @@ const loadClosedIssue = async () => {
     allIssueCard(closeFilter);
 }
 
+const modalOpen = async (id)=>{
+    const modal = document.getElementById('my_modal');
+    modal.showModal();
+    const modalContent = document.getElementById('modal-contentt');
+   
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
+    const res = await fetch(url);
+    const cardDetails = await res.json();
+    const card = cardDetails.data;
+    console.log(card);
+    modalContent.innerHTML = `
+    <h3 class="text-lg font-bold">${card.title}</h3>
+     <button class="">${card.status}</button>
+      <div>
+           ${card.labels[0]? `<button class="bg-yellow-100 text-sm text-amber-600 px-3 rounded-4xl border border-amber-600 ">${card.labels[0]}</button>` : ""}
+          ${card.labels[1]? `<button class="bg-yellow-100 text-sm text-amber-600 px-3 rounded-4xl border border-amber-600 ">${card.labels[1]}</button>` : ""}
+        </div>
+         <p class="text-[#64748B] text-[13px]">${card.description}</p>
+          <div class="flex justify-around items-start bg-[#F8FAFC] py-3">
+            <div>
+            <p class="text-[#64748B]">Assignee:</p>
+            <p class="text-black font-bold">${card.assignee}</p>
+        </div>
+          <div>
+            <p class="text-[#64748B]">Priority:</p>
+            <p class="${statusCheck(card.priority)}">${card.priority}</p>
+        </div>
+          </div>
+    `
+
+}
 loadAllissue();

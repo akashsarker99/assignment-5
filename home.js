@@ -2,6 +2,18 @@ const spinner = document.getElementById('spinner');
 const allCard = document.getElementById('all-card-container');
 let btnTrack ='allBtn';
 
+function btnTracking(id){
+  if(id == "allBtn"){
+        loadAllissue();
+    }
+    else if(id =="openBtn"){
+        loadOpenIssue();
+    }
+    else if(id == "closedBtn"){
+        loadClosedIssue();
+    }
+}
+
 function toggleBtn(id) {
     btnTrack = id;
    const allBtn = document.getElementById('allBtn');
@@ -15,15 +27,8 @@ function toggleBtn(id) {
     closedBtn.classList.remove("btn-primary");
     selected.classList.add("btn-primary")
 
-    if(id == "allBtn"){
-        loadAllissue();
-    }
-    else if(id =="openBtn"){
-        loadOpenIssue();
-    }
-    else if(id == "closedBtn"){
-        loadClosedIssue();
-    }
+    btnTracking(id);
+    
 }
 
 function showSpinner (){
@@ -63,7 +68,7 @@ const allIssueCard =(issue) =>{
    issue.forEach(element => {
         const issueCard = document.createElement('div');
         issueCard.innerHTML = `
-          <div class="cardd p-5 shadow-xl rounded-2xl space-y-3 h-[300px] ${element.status == "open"? "border-t-3 border-t-green-500": "border-t-3 border-t-purple-500"} cursor-pointer" onclick='modalOpen(${element.id})' >
+          <div class="cardd p-5 shadow-xl rounded-2xl space-y-3 h-[300px] transition-all duration-300 ease-in-out hover:translate-x-1 hover:-translate-y-1 ${element.status == "open"? "border-t-3 border-t-green-500 hover:bg-green-50 ${}": "border-t-3 border-t-purple-500 hover:bg-purple-50"} cursor-pointer" onclick='modalOpen(${element.id})' >
         <div class="flex justify-between">
            ${element.status == "open" ? '<img src="./assets/Open-Status.png" alt=""></img>' : '<img src="./assets/Closed- Status .png" alt=""></img>' } 
            <button class="${priorityCheck(element.priority)}">${element.priority.toUpperCase()}</button>
@@ -78,8 +83,8 @@ const allIssueCard =(issue) =>{
         </div>
         <hr class="opacity-50">
 
-        <p class="text-[#64748B] text-sm">#${element.id} by${element.author}</p>
-        <p class="text-[#64748B] text-sm">${element.createdAt}</p>
+        <p class="text-[#64748B] text-sm">#${element.id} by${element.author.replace("_"," ")}</p>
+        <p class="text-[#64748B] text-sm">${element.createdAt.split("T")[0]}</p>
 
       </div>
     </div>
@@ -107,7 +112,8 @@ const loadClosedIssue = async () => {
 const loadSearchIssue =async () =>{
     const input = document.getElementById('searchInput');
     const inputVal = input.value.trim();
-       if(inputVal === ""){
+    if(inputVal === ""){
+      btnTracking(btnTrack);
       return;
     }
     const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${inputVal}`);
@@ -135,7 +141,17 @@ const modalOpen = async (id)=>{
     console.log(card);
     modalContent.innerHTML = `
     <h3 class="text-lg font-bold">${card.title}</h3>
-     <button class="${card.status == "open"? "bg-green-600 rounded-4xl px-3 text-white": "bg-purple-600 rounded-4xl px-3 text-white"}">${card.status}</button>
+     <div class="flex gap-2">
+      <button class="${card.status == "open"? "bg-green-600 rounded-4xl px-3 text-white": "bg-purple-600 rounded-4xl px-3 text-white"}">${card.status}</button>
+      <div>
+       <div class="flex items-center text-gray-500 text-sm gap-2">
+          <span>•</span>
+            <p>${card.status == "open"? `Opened by ${card.assignee.replace("_"," ")}`: `Closed by ${card.assignee.replace("_"," ")}`}</p>
+                <span>•</span>
+               <p>${card.createdAt.split("T")[0]}</p>
+          </div>
+      </div>
+     </div>
       <div>
            ${card.labels[0]? `<button class="bg-yellow-100 text-sm text-amber-600 px-3 rounded-4xl border border-amber-600 ">${card.labels[0].toUpperCase()}</button>` : ""}
           ${card.labels[1]? `<button class="bg-yellow-100 text-sm text-amber-600 px-3 rounded-4xl border border-amber-600 ">${card.labels[1].toUpperCase()}</button>` : ""}
@@ -144,13 +160,14 @@ const modalOpen = async (id)=>{
           <div class="flex justify-between items-center bg-[#F8FAFC] p-5">
             <div>
             <p class="text-[#64748B]">Assignee:</p>
-            <p class="text-black font-bold">${card.assignee}</p>
+            <p class="text-black font-bold">${card.assignee.replace("_"," ")}</p>
         </div>
           <div>
             <p class="text-[#64748B]">Priority:</p>
             <p class="${priorityCheck(card.priority)}">${card.priority.toUpperCase()}</p>
         </div>
           </div>
+
     `
 
 }

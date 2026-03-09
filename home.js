@@ -68,7 +68,7 @@ const allIssueCard =(issue) =>{
    issue.forEach(element => {
         const issueCard = document.createElement('div');
         issueCard.innerHTML = `
-          <div class="cardd p-5 shadow-xl rounded-2xl space-y-3 h-[300px] transition-all duration-300 ease-in-out hover:translate-x-1 hover:-translate-y-1 ${element.status == "open"? "border-t-3 border-t-green-500 hover:bg-green-50 ${}": "border-t-3 border-t-purple-500 hover:bg-purple-50"} cursor-pointer" onclick='modalOpen(${element.id})' >
+          <div class="cardd p-5 shadow-xl rounded-xl space-y-3 h-[300px] transition-all duration-300 ease-in-out hover:translate-x-1 hover:-translate-y-1 ${element.status == "open"? "border-t-3 border-t-green-500 hover:bg-green-50 ${}": "border-t-3 border-t-purple-500 hover:bg-purple-50"} cursor-pointer" onclick='modalOpen(${element.id})' >
         <div class="flex justify-between">
            ${element.status == "open" ? '<img src="./assets/Open-Status.png" alt=""></img>' : '<img src="./assets/Closed- Status .png" alt=""></img>' } 
            <button class="${priorityCheck(element.priority)}">${element.priority.toUpperCase()}</button>
@@ -83,7 +83,7 @@ const allIssueCard =(issue) =>{
         </div>
         <hr class="opacity-50">
 
-        <p class="text-[#64748B] text-sm">#${element.id} by${element.author.replace("_"," ")}</p>
+        <p class="text-[#64748B] text-sm">#${element.id} by${element.author.replaceAll("_"," ")}</p>
         <p class="text-[#64748B] text-sm">${element.createdAt.split("T")[0]}</p>
 
       </div>
@@ -146,7 +146,7 @@ const modalOpen = async (id)=>{
       <div>
        <div class="flex items-center text-gray-500 text-sm gap-2">
           <span>•</span>
-            <p>${card.status == "open"? `Opened by ${card.assignee.replace("_"," ")}`: `Closed by ${card.assignee.replace("_"," ")}`}</p>
+            <p>${card.status == "open"? `Opened by ${card.assignee.replaceAll("_"," ")}`: `Closed by ${card.assignee.replaceAll("_"," ")}`}</p>
                 <span>•</span>
                <p>${card.createdAt.split("T")[0]}</p>
           </div>
@@ -160,7 +160,7 @@ const modalOpen = async (id)=>{
           <div class="flex justify-between items-center bg-[#F8FAFC] p-5">
             <div>
             <p class="text-[#64748B]">Assignee:</p>
-            <p class="text-black font-bold">${card.assignee.replace("_"," ")}</p>
+            <p class="text-black font-bold">${card.assignee.replaceAll("_"," ")}</p>
         </div>
           <div>
             <p class="text-[#64748B]">Priority:</p>
